@@ -1,0 +1,293 @@
+name: Build, Test, and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  DOCKER_BUILDKIT: 1
+
+jobs:
+  validate:
+    name: Validate Configuration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Dockerfile syntax
+        run: |
+          docker run --rm -i hadolint/hadolint < Dockerfile || true
+
+      - name: Validate test configurations
+        run: |
+          cd tests
+          for dir in */; do
+            if [ -f "$dir/lang.properties" ]; then
+              echo "Validating $dir/lang.properties..."
+              bash -n "$dir/lang.properties" || exit 1
+            fi
+          done
+          echo "✓ All lang.properties files are valid"
+
+      - name: Validate test runner script
+        run: |
+          bash -n tests/run
+          echo "✓ Test runner script is valid"
+
+      - name: Check version consistency
+        run: |
+          echo "Checking version consistency across Dockerfile and tests..."
+          errors=0
+          
+          # Sample version checks
+          gcc_version=$(grep -A 1 'ENV GCC_VERSIONS' Dockerfile | tail -1 | xargs)
+          gcc_test=$(grep '^VERSIONS=' tests/gcc/lang.properties | cut -d'"' -f2)
+          if [ "$gcc_version" != "$gcc_test" ]; then
+            echo "❌ GCC version mismatch: Dockerfile=$gcc_version, Test=$gcc_test"
+            ((errors++))
+          else
+            echo "✓ GCC: $gcc_version"
+          fi
+          
+          python_version=$(grep -A 1 'ENV PYTHON_VERSIONS' Dockerfile | tail -1 | xargs)
+          python_test=$(grep '^VERSIONS=' tests/python/lang.properties | cut -d'"' -f2)
+          if [ "$python_version" != "$python_test" ]; then
+            echo "❌ Python version mismatch: Dockerfile=$python_version, Test=$python_test"
+            ((errors++))
+          else
+            echo "✓ Python: $python_version"
+          fi
+          
+          node_version=$(grep -A 1 'ENV NODE_VERSIONS' Dockerfile | tail -1 | xargs)
+          node_test=$(grep '^VERSIONS=' tests/node/lang.properties | cut -d'"' -f2)
+          if [ "$node_version" != "$node_test" ]; then
+            echo "❌ Node version mismatch: Dockerfile=$node_version, Test=$node_test"
+            ((errors++))
+          else
+            echo "✓ Node: $node_version"
+          fi
+          
+          if [ $errors -gt 0 ]; then
+            echo "❌ Found $errors version mismatches"
+            exit 1
+          fi
+          echo "✓ All versions are consistent"
+
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: validate
+    timeout-minutes: 480
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          load: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+
+      - name: Save Docker image
+        run: |
+          docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test | gzip > /tmp/docker-image.tar.gz
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp/docker-image.tar.gz
+          retention-days: 1
+
+  test:
+    name: Test Docker Image
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        language:
+          - bash
+          - gcc
+          - g++
+          - gfortran
+          - clang
+          - clang++
+          - python
+          - node
+          - ruby
+          - go
+          - rust
+          - java
+          - kotlin
+          - scala
+          - php
+          - typescript
+          - swift
+          - r
+          - octave
+          - lua
+          - perl
+          - d
+          - erlang
+          - ghc
+          - ocaml
+          - sbcl
+          - fbc
+          - fpc
+          - nasm
+          - gprolog
+          - gnucobol
+          - objective-c
+          - clojure
+          - groovy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+
+      - name: Load Docker image
+        run: |
+          docker load < /tmp/docker-image.tar.gz
+
+      - name: Run tests for ${{ matrix.language }}
+        run: |
+          cd tests
+          docker run --rm -v $PWD:/tests -w /tests --privileged \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test ./run -l ${{ matrix.language }}
+
+  test-all:
+    name: Run All Tests
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 120
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: /tmp
+
+      - name: Load Docker image
+        run: |
+          docker load < /tmp/docker-image.tar.gz
+
+      - name: Run all tests
+        run: |
+          cd tests
+          docker run --rm -v $PWD:/tests -w /tests --privileged \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test ./run
+
+      - name: Generate test report
+        if: always()
+        run: |
+          echo "Test execution completed"
+
+  deploy:
+    name: Push Docker Image
+    runs-on: ubuntu-latest
+    needs: [test, test-all]
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/'))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+
+      - name: Generate deployment summary
+        run: |
+          echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Docker image pushed successfully!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:**" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

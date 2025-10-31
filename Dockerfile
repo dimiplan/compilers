@@ -49,7 +49,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.python.org/downloads
 ENV PYTHON_VERSIONS \
-      3.14.1
+      3.14.0
 RUN set -xe && \
     for VERSION in $PYTHON_VERSIONS; do \
       curl -fSsL "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz" -o /tmp/python-$VERSION.tar.xz && \
