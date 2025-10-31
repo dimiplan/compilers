@@ -158,7 +158,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">33</td>
-<td style="text-align:center">Python (3.14.1)</td>
+<td style="text-align:center">Python (3.14.0)</td>
 </tr>
 <tr>
 <td style="text-align:center">34</td>
