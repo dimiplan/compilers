@@ -1,12 +1,9 @@
-# Check for latest version here: https://hub.docker.com/_/buildpack-deps?tab=tags&page=1&name=buster&ordering=last_updated
-# This is just a snapshot of buildpack-deps:buster that was last updated on 2019-12-28.
-FROM judge0/buildpack-deps:buster-2019-12-28
+# Check for latest version here: https://hub.docker.com/_/buildpack-deps?tab=tags&page=1&ordering=last_updated
+FROM buildpack-deps:stable
 
 # Check for latest version here: https://gcc.gnu.org/releases.html, https://ftpmirror.gnu.org/gcc
 ENV GCC_VERSIONS \
-      7.4.0 \
-      8.3.0 \
-      9.2.0
+      15.2.0
 RUN set -xe && \
     for VERSION in $GCC_VERSIONS; do \
       curl -fSsL "https://ftpmirror.gnu.org/gcc/gcc-$VERSION/gcc-$VERSION.tar.gz" -o /tmp/gcc-$VERSION.tar.gz && \
@@ -34,7 +31,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.ruby-lang.org/en/downloads
 ENV RUBY_VERSIONS \
-      2.7.0
+      3.4.7
 RUN set -xe && \
     for VERSION in $RUBY_VERSIONS; do \
       curl -fSsL "https://cache.ruby-lang.org/pub/ruby/${VERSION%.*}/ruby-$VERSION.tar.gz" -o /tmp/ruby-$VERSION.tar.gz && \
@@ -52,8 +49,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.python.org/downloads
 ENV PYTHON_VERSIONS \
-      3.8.1 \
-      2.7.17
+      3.14.1
 RUN set -xe && \
     for VERSION in $PYTHON_VERSIONS; do \
       curl -fSsL "https://www.python.org/ftp/python/$VERSION/Python-$VERSION.tar.xz" -o /tmp/python-$VERSION.tar.xz && \
@@ -68,15 +64,15 @@ RUN set -xe && \
       rm -rf /tmp/*; \
     done
 
-# Check for latest version here: https://ftp.gnu.org/gnu/octave
+# Check for latest version here: https://ftpmirror.gnu.org/gnu/octave
 ENV OCTAVE_VERSIONS \
-      5.1.0
+      10.3.0
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends gfortran libblas-dev liblapack-dev libpcre3-dev && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $OCTAVE_VERSIONS; do \
-      curl -fSsL "https://ftp.gnu.org/gnu/octave/octave-$VERSION.tar.gz" -o /tmp/octave-$VERSION.tar.gz && \
+      curl -fSsL "https://ftpmirror.gnu.org/gnu/octave/octave-$VERSION.tar.gz" -o /tmp/octave-$VERSION.tar.gz && \
       mkdir /tmp/octave-$VERSION && \
       tar -xf /tmp/octave-$VERSION.tar.gz -C /tmp/octave-$VERSION --strip-components=1 && \
       rm /tmp/octave-$VERSION.tar.gz && \
@@ -90,7 +86,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://jdk.java.net
 RUN set -xe && \
-    curl -fSsL "https://download.java.net/java/GA/jdk13.0.1/cec27d702aa74d5a8630c65ae61e4305/9/GPL/openjdk-13.0.1_linux-x64_bin.tar.gz" -o /tmp/openjdk13.tar.gz && \
+    curl -fSsL "https://download.java.net/java/GA/jdk25.0.1/2fbf10d8c78e40bd87641c434705079d/8/GPL/openjdk-25.0.1_linux-x64_bin.tar.gz" -o /tmp/openjdk13.tar.gz && \
     mkdir /usr/local/openjdk13 && \
     tar -xf /tmp/openjdk13.tar.gz -C /usr/local/openjdk13 --strip-components=1 && \
     rm /tmp/openjdk13.tar.gz && \
@@ -100,7 +96,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://ftpmirror.gnu.org/bash
 ENV BASH_VERSIONS \
-      5.0
+      5.3
 RUN set -xe && \
     for VERSION in $BASH_VERSIONS; do \
       curl -fSsL "https://ftpmirror.gnu.org/bash/bash-$VERSION.tar.gz" -o /tmp/bash-$VERSION.tar.gz && \
@@ -117,7 +113,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.freepascal.org/download.html
 ENV FPC_VERSIONS \
-      3.0.4
+      3.2.2
 RUN set -xe && \
     for VERSION in $FPC_VERSIONS; do \
       curl -fSsL "ftp://ftp.freepascal.org/fpc/dist/$VERSION/x86_64-linux/fpc-$VERSION.x86_64-linux.tar" -o /tmp/fpc-$VERSION.tar && \
@@ -131,13 +127,13 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.haskell.org/ghc/download.html
 ENV HASKELL_VERSIONS \
-      8.8.1
+      9.12.2
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends libgmp-dev libtinfo5 && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $HASKELL_VERSIONS; do \
-      curl -fSsL "https://downloads.haskell.org/~ghc/$VERSION/ghc-$VERSION-x86_64-deb8-linux.tar.xz" -o /tmp/ghc-$VERSION.tar.xz && \
+      curl -fSsL "https://downloads.haskell.org/~ghc/$VERSION/ghc-$VERSION-x86_64-deb12-linux.tar.xz" -o /tmp/ghc-$VERSION.tar.xz && \
       mkdir /tmp/ghc-$VERSION && \
       tar -xf /tmp/ghc-$VERSION.tar.xz -C /tmp/ghc-$VERSION --strip-components=1 && \
       rm /tmp/ghc-$VERSION.tar.xz && \
@@ -150,7 +146,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.mono-project.com/download/stable
 ENV MONO_VERSIONS \
-      6.6.0.161
+      6.12.0.206
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends cmake && \
@@ -170,7 +166,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://nodejs.org/en
 ENV NODE_VERSIONS \
-      12.14.0
+      24.11.0
 RUN set -xe && \
     for VERSION in $NODE_VERSIONS; do \
       curl -fSsL "https://nodejs.org/dist/v$VERSION/node-v$VERSION.tar.gz" -o /tmp/node-$VERSION.tar.gz && \
@@ -187,13 +183,13 @@ RUN set -xe && \
 
 # Check for latest version here: https://github.com/erlang/otp/releases
 ENV ERLANG_VERSIONS \
-      22.2
+      28.1.1
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends unzip && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $ERLANG_VERSIONS; do \
-      curl -fSsL "https://github.com/erlang/otp/archive/OTP-$VERSION.tar.gz" -o /tmp/erlang-$VERSION.tar.gz && \
+      curl -fSsL "https://github.com/erlang/otp/releases/download/OTP-$VERSION/otp_src_$VERSION.tar.gz" -o /tmp/erlang-$VERSION.tar.gz && \
       mkdir /tmp/erlang-$VERSION && \
       tar -xf /tmp/erlang-$VERSION.tar.gz -C /tmp/erlang-$VERSION --strip-components=1 && \
       rm /tmp/erlang-$VERSION.tar.gz && \
@@ -205,24 +201,24 @@ RUN set -xe && \
       make -j$(nproc) install && \
       rm -rf /tmp/*; \
     done; \
-    ln -s /usr/local/erlang-22.2/bin/erl /usr/local/bin/erl
+    ln -s /usr/local/erlang-$VERSION/bin/erl /usr/local/bin/erl
 
 # Check for latest version here: https://github.com/elixir-lang/elixir/releases
-ENV ELIXIR_VERSIONS \
-      1.9.4
-RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends unzip && \
-    rm -rf /var/lib/apt/lists/* && \
-    for VERSION in $ELIXIR_VERSIONS; do \
-      curl -fSsL "https://github.com/elixir-lang/elixir/releases/download/v$VERSION/Precompiled.zip" -o /tmp/elixir-$VERSION.zip && \
-      unzip -d /usr/local/elixir-$VERSION /tmp/elixir-$VERSION.zip && \
-      rm -rf /tmp/*; \
-    done
+# ENV ELIXIR_VERSIONS \
+#       1.19.1
+# RUN set -xe && \
+#     apt-get update && \
+#     apt-get install -y --no-install-recommends unzip && \
+#     rm -rf /var/lib/apt/lists/* && \
+#     for VERSION in $ELIXIR_VERSIONS; do \
+#       curl -fSsL "https://github.com/elixir-lang/elixir/releases/download/v$VERSION/Precompiled.zip" -o /tmp/elixir-$VERSION.zip && \
+#       unzip -d /usr/local/elixir-$VERSION /tmp/elixir-$VERSION.zip && \
+#       rm -rf /tmp/*; \
+#     done
 
 # Check for latest version here: https://www.rust-lang.org
 ENV RUST_VERSIONS \
-      1.40.0
+      1.91.0
 RUN set -xe && \
     for VERSION in $RUST_VERSIONS; do \
       curl -fSsL "https://static.rust-lang.org/dist/rust-$VERSION-x86_64-unknown-linux-gnu.tar.gz" -o /tmp/rust-$VERSION.tar.gz && \
@@ -238,7 +234,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://golang.org/dl
 ENV GO_VERSIONS \
-      1.13.5
+      1.25.3
 RUN set -xe && \
     for VERSION in $GO_VERSIONS; do \
       curl -fSsL "https://storage.googleapis.com/golang/go$VERSION.linux-amd64.tar.gz" -o /tmp/go-$VERSION.tar.gz && \
@@ -249,7 +245,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://sourceforge.net/projects/fbc/files/Binaries%20-%20Linux
 ENV FBC_VERSIONS \
-      1.07.1
+      1.10.1
 RUN set -xe && \
     for VERSION in $FBC_VERSIONS; do \
       curl -fSsL "https://downloads.sourceforge.net/project/fbc/Binaries%20-%20Linux/FreeBASIC-$VERSION-linux-x86_64.tar.gz" -o /tmp/fbc-$VERSION.tar.gz && \
@@ -260,10 +256,10 @@ RUN set -xe && \
 
 # Check for latest version here: https://github.com/ocaml/ocaml/releases
 ENV OCAML_VERSIONS \
-      4.09.0
+      5.4.0
 RUN set -xe && \
     for VERSION in $OCAML_VERSIONS; do \
-      curl -fSsL "https://github.com/ocaml/ocaml/archive/$VERSION.tar.gz" -o /tmp/ocaml-$VERSION.tar.gz && \
+      curl -fSsL "https://github.com/ocaml/ocaml/releases/download/$VERSION/$VERSION.tar.gz" -o /tmp/ocaml-$VERSION.tar.gz && \
       mkdir /tmp/ocaml-$VERSION && \
       tar -xf /tmp/ocaml-$VERSION.tar.gz -C /tmp/ocaml-$VERSION --strip-components=1 && \
       rm /tmp/ocaml-$VERSION.tar.gz && \
@@ -278,7 +274,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.php.net/downloads
 ENV PHP_VERSIONS \
-      7.4.1
+      8.4
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends bison re2c && \
@@ -299,7 +295,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://dlang.org/download.html#dmd
 ENV D_VERSIONS \
-      2.089.1
+      2.111.0
 RUN set -xe && \
     for VERSION in $D_VERSIONS; do \
       curl -fSsL "http://downloads.dlang.org/releases/2.x/$VERSION/dmd.$VERSION.linux.tar.xz" -o /tmp/d-$VERSION.tar.gz && \
@@ -311,7 +307,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://www.lua.org/download.html
 ENV LUA_VERSIONS \
-      5.3.5
+      5.4.8
 RUN set -xe && \
     for VERSION in $LUA_VERSIONS; do \
       curl -fSsL "https://downloads.sourceforge.net/project/luabinaries/$VERSION/Tools%20Executables/lua-${VERSION}_Linux44_64_bin.tar.gz" -o /tmp/lua-$VERSION.tar.gz && \
@@ -323,9 +319,9 @@ RUN set -xe && \
 
 # Check for latest version here: https://github.com/microsoft/TypeScript/releases
 ENV TYPESCRIPT_VERSIONS \
-      3.7.4
+      5.9.3
 RUN set -xe && \
-    curl -fSsL "https://deb.nodesource.com/setup_12.x" | bash - && \
+    curl -fSsL "https://deb.nodesource.com/setup_22.x" | bash - && \
     apt-get update && \
     apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/* && \
@@ -335,7 +331,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://nasm.us
 ENV NASM_VERSIONS \
-      2.14.02
+      3.01
 RUN set -xe && \
     for VERSION in $NASM_VERSIONS; do \
       curl -fSsL "https://www.nasm.us/pub/nasm/releasebuilds/$VERSION/nasm-$VERSION.tar.gz" -o /tmp/nasm-$VERSION.tar.gz && \
@@ -355,7 +351,7 @@ RUN set -xe && \
 
 # Check for latest version here: http://gprolog.org/#download
 ENV GPROLOG_VERSIONS \
-      1.4.5
+      1.5.0
 RUN set -xe && \
     for VERSION in $GPROLOG_VERSIONS; do \
       curl -fSsL "http://gprolog.org/gprolog-$VERSION.tar.gz" -o /tmp/gprolog-$VERSION.tar.gz && \
@@ -372,7 +368,7 @@ RUN set -xe && \
 
 # Check for latest version here: http://www.sbcl.org/platform-table.html
 ENV SBCL_VERSIONS \
-      2.0.0
+      2.5.10
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends bison re2c && \
@@ -387,12 +383,12 @@ RUN set -xe && \
       rm -rf /tmp/*; \
     done
 
-# Check for latest version here: https://ftp.gnu.org/gnu/gnucobol
+# Check for latest version here: https://ftpmirror.gnu.org/gnu/gnucobol
 ENV COBOL_VERSIONS \
-      2.2
+      3.2
 RUN set -xe && \
     for VERSION in $COBOL_VERSIONS; do \
-      curl -fSsL "https://ftp.gnu.org/gnu/gnucobol/gnucobol-$VERSION.tar.xz" -o /tmp/gnucobol-$VERSION.tar.xz && \
+      curl -fSsL "https://ftp.gnumirror.org/gnu/gnucobol/gnucobol-$VERSION.tar.xz" -o /tmp/gnucobol-$VERSION.tar.xz && \
       mkdir /tmp/gnucobol-$VERSION && \
       tar -xf /tmp/gnucobol-$VERSION.tar.xz -C /tmp/gnucobol-$VERSION --strip-components=1 && \
       rm /tmp/gnucobol-$VERSION.tar.xz && \
@@ -406,13 +402,13 @@ RUN set -xe && \
 
 # Check for latest version here: https://swift.org/download
 ENV SWIFT_VERSIONS \
-      5.2.3
+      6.2
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends libncurses5 && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $SWIFT_VERSIONS; do \
-      curl -fSsL "https://swift.org/builds/swift-$VERSION-release/ubuntu1804/swift-$VERSION-RELEASE/swift-$VERSION-RELEASE-ubuntu18.04.tar.gz" -o /tmp/swift-$VERSION.tar.gz && \
+      curl -fSsL "https://download.swift.org/swift-$VERSION-release/ubuntu2404/swift-$VERSION-RELEASE/swift-$VERSION-RELEASE-ubuntu24.04.tar.gz" -o /tmp/swift-$VERSION.tar.gz && \
       mkdir /usr/local/swift-$VERSION && \
       tar -xf /tmp/swift-$VERSION.tar.gz -C /usr/local/swift-$VERSION --strip-components=2 && \
       rm -rf /tmp/*; \
@@ -420,7 +416,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://kotlinlang.org
 ENV KOTLIN_VERSIONS \
-      1.3.70
+      2.2.21
 RUN set -xe && \
     for VERSION in $KOTLIN_VERSIONS; do \
       curl -fSsL "https://github.com/JetBrains/kotlin/releases/download/v$VERSION/kotlin-compiler-$VERSION.zip" -o /tmp/kotlin-$VERSION.zip && \
@@ -430,37 +426,16 @@ RUN set -xe && \
       rm -rf /tmp/*; \
     done
 
-# Check for latest version here: https://hub.docker.com/_/mono
-# I currently use this to add support for Visual Basic.Net but this can be also
-# used to support C# language which has been already supported but with manual
-# installation of Mono (see above).
-ENV MONO_VERSION 6.6.0.161
-RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends gnupg dirmngr && \
-    rm -rf /var/lib/apt/lists/* && \
-    export GNUPGHOME="$(mktemp -d)" && \
-    gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
-    gpg --batch --export --armor 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF > /etc/apt/trusted.gpg.d/mono.gpg.asc && \
-    gpgconf --kill all && \
-    rm -rf "$GNUPGHOME" && \
-    apt-key list | grep Xamarin && \
-    apt-get purge -y --auto-remove gnupg dirmngr && \
-    echo "deb http://download.mono-project.com/repo/debian stable-stretch/snapshots/$MONO_VERSION main" > /etc/apt/sources.list.d/mono-official-stable.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends mono-vbnc && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
-
 # Check for latest version here: https://packages.debian.org/buster/clang-7
 # Used for additional compilers for C, C++ and used for Objective-C.
 RUN set -xe && \
     apt-get update && \
-    apt-get install -y --no-install-recommends clang-7 gnustep-devel && \
+    apt-get install -y --no-install-recommends clang-14 gnustep-devel && \
     rm -rf /var/lib/apt/lists/*
 
 # Check for latest version here: https://cloud.r-project.org/src/base
 ENV R_VERSIONS \
-      4.0.0
+      4.5.2
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends libpcre2-dev && \
@@ -487,7 +462,7 @@ RUN set -xe && \
 
 # Check for latest version here: https://scala-lang.org
 ENV SCALA_VERSIONS \
-      2.13.2
+      3.3.6
 RUN set -xe && \
     for VERSION in $SCALA_VERSIONS; do \
       curl -fSsL "https://downloads.lightbend.com/scala/$VERSION/scala-$VERSION.tgz" -o /tmp/scala-$VERSION.tgz && \
@@ -499,7 +474,7 @@ RUN set -xe && \
 # Support for Perl came "for free" since it is already installed.
 
 # Check for latest version here: https://github.com/clojure/clojure/releases
-ENV CLOJURE_VERSION 1.10.1
+ENV CLOJURE_VERSION 1.12.3
 RUN set -xe && \
     apt-get update && \
     apt-get install -y --no-install-recommends maven && \
@@ -515,14 +490,14 @@ RUN set -xe && \
 
 # Check for latest version here: https://github.com/dotnet/sdk/releases
 RUN set -xe && \
-    curl -fSsL "https://download.visualstudio.microsoft.com/download/pr/7d4c708b-38db-48b2-8532-9fc8a3ab0e42/23229fd17482119822bd9261b3570d87/dotnet-sdk-3.1.202-linux-x64.tar.gz" -o /tmp/dotnet.tar.gz && \
+    curl -fSsL "https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.306/dotnet-sdk-9.0.306-linux-x64.tar.gz" -o /tmp/dotnet.tar.gz && \
     mkdir /usr/local/dotnet-sdk && \
     tar -xf /tmp/dotnet.tar.gz -C /usr/local/dotnet-sdk && \
     rm -rf /tmp/*
 
 # Check for latest version here: https://groovy.apache.org/download.html
 RUN set -xe && \
-    curl -fSsL "https://dl.bintray.com/groovy/maven/apache-groovy-binary-3.0.3.zip" -o /tmp/groovy.zip && \
+    curl -fSsL "https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-5.0.2.zip" -o /tmp/groovy.zip && \
     unzip /tmp/groovy.zip -d /usr/local && \
     rm -rf /tmp/*
 
