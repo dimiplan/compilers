@@ -68,8 +68,15 @@ RUN set -xe && \
 ENV OCTAVE_VERSIONS \
       10.3.0
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends gfortran libblas-dev liblapack-dev libpcre3-dev && \
+    apt update && \
+    apt install -y sudo apt install libopenblas-dev liblapack-dev libpcre2-dev libarpack2-dev \
+    libcurl4-gnutls-dev epstool libfftw3-dev fig2dev libfltk1.3-dev \
+    libfontconfig1-dev libfreetype-dev libgl2ps-dev libglpk-dev libreadline-dev \
+    gnuplot libgraphicsmagick++1-dev libhdf5-dev openjdk-21-jdk libsndfile1-dev \
+    llvm-dev texinfo libgl1-mesa-dev libosmesa6-dev pstoedit portaudio19-dev \
+    libjack-jackd2-dev libqhull-dev libqrupdate-dev libqt5core5t64 qtbase5-dev \
+    qttools5-dev qttools5-dev-tools libqscintilla2-qt5-dev libsuitesparse-dev \
+    texlive texlive-latex-extra libxft-dev libsundials-dev && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $OCTAVE_VERSIONS; do \
       curl -fSsL "https://ftpmirror.gnu.org/gnu/octave/octave-$VERSION.tar.gz" -o /tmp/octave-$VERSION.tar.gz && \
