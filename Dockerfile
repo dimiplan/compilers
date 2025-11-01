@@ -113,8 +113,21 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 7: Build Haskell (GHC)
-FROM bash-stage AS haskell-stage
+# Stage 7: Build Free Pascal
+FROM bash-stage AS fpc-stage
+# Check for latest version here: https://www.freepascal.org/download.html
+ENV FPC_VERSION=3.2.2
+RUN set -xe && \
+    curl -fSsL "http://downloads.freepascal.org/fpc/dist/$FPC_VERSION/x86_64-linux/fpc-$FPC_VERSION.x86_64-linux.tar" -o /tmp/fpc-$FPC_VERSION.tar && \
+    mkdir /tmp/fpc-$FPC_VERSION && \
+    tar -xf /tmp/fpc-$FPC_VERSION.tar -C /tmp/fpc-$FPC_VERSION --strip-components=1 && \
+    rm /tmp/fpc-$FPC_VERSION.tar && \
+    cd /tmp/fpc-$FPC_VERSION && \
+    echo "/usr/local/fpc-$FPC_VERSION" | bash install.sh && \
+    rm -rf /tmp/*
+
+# Stage 8: Build Haskell (GHC)
+FROM fpc-stage AS haskell-stage
 # Check for latest version here: https://www.haskell.org/ghc/download.html
 ENV HASKELL_VERSION=9.12.2
 RUN set -xe && \
@@ -131,7 +144,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 8: Build Mono (C#)
+# Stage 9: Build Mono (C#)
 FROM haskell-stage AS mono-stage
 # Check for latest version here: https://www.mono-project.com/download/stable
 ENV MONO_VERSION=6.12.0.206
@@ -150,7 +163,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 9: Build Node.js
+# Stage 10: Build Node.js
 FROM mono-stage AS node-stage
 # Check for latest version here: https://nodejs.org/en
 ENV NODE_VERSION=24.11.0
@@ -166,7 +179,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 10: Build Erlang
+# Stage 11: Build Erlang
 FROM node-stage AS erlang-stage
 # Check for latest version here: https://github.com/erlang/otp/releases
 ENV ERLANG_VERSION=28.1.1
@@ -187,7 +200,7 @@ RUN set -xe && \
     rm -rf /tmp/* && \
     ln -s /usr/local/erlang-$ERLANG_VERSION/bin/erl /usr/local/bin/erl
 
-# Stage 11: Build Rust
+# Stage 12: Build Rust
 FROM erlang-stage AS rust-stage
 # Check for latest version here: https://www.rust-lang.org
 ENV RUST_VERSION=1.91.0
@@ -202,7 +215,7 @@ RUN set -xe && \
       --components=rustc,rust-std-x86_64-unknown-linux-gnu && \
     rm -rf /tmp/*
 
-# Stage 12: Install Go
+# Stage 13: Install Go
 FROM rust-stage AS go-stage
 # Check for latest version here: https://golang.org/dl
 ENV GO_VERSION=1.25.3
@@ -212,7 +225,7 @@ RUN set -xe && \
     tar -xf /tmp/go.tar.gz -C /usr/local/go-$GO_VERSION --strip-components=1 && \
     rm -rf /tmp/*
 
-# Stage 13: Install FreeBASIC
+# Stage 14: Install FreeBASIC
 FROM go-stage AS fbc-stage
 # Check for latest version here: https://sourceforge.net/projects/fbc/files/Binaries%20-%20Linux
 ENV FBC_VERSION=1.10.1
@@ -222,7 +235,7 @@ RUN set -xe && \
     tar -xf /tmp/fbc.tar.gz -C /usr/local/fbc-$FBC_VERSION --strip-components=1 && \
     rm -rf /tmp/*
 
-# Stage 14: Build OCaml
+# Stage 15: Build OCaml
 FROM fbc-stage AS ocaml-stage
 # Check for latest version here: https://github.com/ocaml/ocaml/releases
 ENV OCAML_VERSION=5.4.0
@@ -239,7 +252,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 15: Build PHP
+# Stage 16: Build PHP
 FROM ocaml-stage AS php-stage
 # Check for latest version here: https://www.php.net/downloads
 ENV PHP_VERSION=8.4
@@ -259,7 +272,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 16: Install D (DMD)
+# Stage 17: Install D (DMD)
 FROM php-stage AS d-stage
 # Check for latest version here: https://dlang.org/download.html#dmd
 ENV D_VERSION=2.111.0
@@ -270,7 +283,7 @@ RUN set -xe && \
     rm -rf /usr/local/d-$D_VERSION/linux/*32 && \
     rm -rf /tmp/*
 
-# Stage 17: Install Lua
+# Stage 18: Install Lua
 FROM d-stage AS lua-stage
 # Check for latest version here: https://www.lua.org/download.html
 ENV LUA_VERSION=5.4.8
@@ -281,7 +294,7 @@ RUN set -xe && \
     rm -rf /tmp/* && \
     ln -s /lib/x86_64-linux-gnu/libreadline.so.7 /lib/x86_64-linux-gnu/libreadline.so.6
 
-# Stage 18: Install TypeScript
+# Stage 19: Install TypeScript
 FROM lua-stage AS typescript-stage
 # Check for latest version here: https://github.com/microsoft/TypeScript/releases
 ENV TYPESCRIPT_VERSION=5.9.3
@@ -292,7 +305,7 @@ RUN set -xe && \
     rm -rf /var/lib/apt/lists/* && \
     npm install -g typescript@$TYPESCRIPT_VERSION
 
-# Stage 19: Build NASM
+# Stage 20: Build NASM
 FROM typescript-stage AS nasm-stage
 # Check for latest version here: https://nasm.us
 ENV NASM_VERSION=3.01
@@ -311,7 +324,7 @@ RUN set -xe && \
     chmod +x /usr/local/nasm-$NASM_VERSION/bin/nasmld && \
     rm -rf /tmp/*
 
-# Stage 20: Build GNU Prolog
+# Stage 21: Build GNU Prolog
 FROM nasm-stage AS gprolog-stage
 # Check for latest version here: http://gprolog.org/#download
 ENV GPROLOG_VERSION=1.5.0
@@ -327,7 +340,7 @@ RUN set -xe && \
     make -j"$(nproc)" install-strip && \
     rm -rf /tmp/*
 
-# Stage 21: Install SBCL (Common Lisp)
+# Stage 22: Install SBCL (Common Lisp)
 FROM gprolog-stage AS sbcl-stage
 # Check for latest version here: http://www.sbcl.org/platform-table.html
 ENV SBCL_VERSION=2.5.10
@@ -343,7 +356,7 @@ RUN set -xe && \
     sh install.sh && \
     rm -rf /tmp/*
 
-# Stage 22: Build GnuCOBOL
+# Stage 23: Build GnuCOBOL
 FROM sbcl-stage AS cobol-stage
 # Check for latest version here: https://ftpmirror.gnu.org/gnu/gnucobol
 ENV COBOL_VERSION=3.2
@@ -359,7 +372,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 23: Install Swift
+# Stage 24: Install Swift
 FROM cobol-stage AS swift-stage
 # Check for latest version here: https://swift.org/download
 ENV SWIFT_VERSION=6.2
@@ -372,7 +385,7 @@ RUN set -xe && \
     tar -xf /tmp/swift.tar.gz -C /usr/local/swift-$SWIFT_VERSION --strip-components=2 && \
     rm -rf /tmp/*
 
-# Stage 24: Install Kotlin
+# Stage 25: Install Kotlin
 FROM swift-stage AS kotlin-stage
 # Check for latest version here: https://kotlinlang.org
 ENV KOTLIN_VERSION=2.2.21
@@ -383,7 +396,7 @@ RUN set -xe && \
     rm -rf /usr/local/kotlin-$KOTLIN_VERSION/kotlinc && \
     rm -rf /tmp/*
 
-# Stage 25: Install Clang and Objective-C support
+# Stage 26: Install Clang and Objective-C support
 FROM kotlin-stage AS clang-stage
 # Check for latest version here: https://packages.debian.org/buster/clang-7
 # Used for additional compilers for C, C++ and used for Objective-C.
@@ -392,7 +405,7 @@ RUN set -xe && \
     apt install -y --no-install-recommends clang-14 gnustep-devel && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage 26: Build R
+# Stage 27: Build R
 FROM clang-stage AS r-stage
 # Check for latest version here: https://cloud.r-project.org/src/base
 ENV R_VERSION=4.5.2
@@ -411,7 +424,7 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 27: Install SQLite
+# Stage 28: Install SQLite
 FROM r-stage AS sqlite-stage
 # Check for latest version here: https://packages.debian.org/buster/sqlite3
 # Used for support of SQLite.
@@ -420,7 +433,7 @@ RUN set -xe && \
     apt install -y --no-install-recommends sqlite3 && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage 28: Install Scala
+# Stage 29: Install Scala
 FROM sqlite-stage AS scala-stage
 # Check for latest version here: https://scala-lang.org
 ENV SCALA_VERSION=3.3.6
@@ -430,7 +443,7 @@ RUN set -xe && \
     tar -xf /tmp/scala.tgz -C /usr/local/scala-$SCALA_VERSION --strip-components=1 && \
     rm -rf /tmp/*
 
-# Stage 29: Build Clojure
+# Stage 30: Build Clojure
 FROM scala-stage AS clojure-stage
 # Support for Perl came "for free" since it is already installed.
 # Check for latest version here: https://github.com/clojure/clojure/releases
@@ -448,7 +461,7 @@ RUN set -xe && \
     apt remove --purge -y maven && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
-# Stage 30: Install .NET SDK
+# Stage 31: Install .NET SDK
 FROM clojure-stage AS dotnet-stage
 # Check for latest version here: https://github.com/dotnet/sdk/releases
 RUN set -xe && \
@@ -457,7 +470,7 @@ RUN set -xe && \
     tar -xf /tmp/dotnet.tar.gz -C /usr/local/dotnet-sdk && \
     rm -rf /tmp/*
 
-# Stage 31: Install Groovy
+# Stage 32: Install Groovy
 FROM dotnet-stage AS groovy-stage
 # Check for latest version here: https://groovy.apache.org/download.html
 RUN set -xe && \
