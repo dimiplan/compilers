@@ -484,7 +484,7 @@ RUN set -xe && \
     git checkout ad39cc4d0fbb577fb545910095c9da5ef8fc9a1a && \
     make -j$(nproc) install && \
     rm -rf /tmp/*
-ENV BOX_ROOT /var/local/lib/isolate
+ENV BOX_ROOT=/var/local/lib/isolate
 
 LABEL maintainer="Herman Zvonimir Došilović <hermanz.dosilovic@gmail.com>"
 LABEL version="1.4.0"
