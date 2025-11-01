@@ -22,8 +22,8 @@ RUN set -xe && \
       --disable-multilib \
       --enable-languages=c,c++ \
       --prefix=/usr/local/gcc-$GCC_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install-strip && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install-strip && \
     rm -rf /tmp/*
 
 # Stage 2: Build Ruby
@@ -39,8 +39,8 @@ RUN set -xe && \
     ./configure \
       --disable-install-doc \
       --prefix=/usr/local/ruby-$RUBY_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 3: Build Python
@@ -55,8 +55,8 @@ RUN set -xe && \
     cd /tmp/python-build && \
     ./configure \
       --prefix=/usr/local/python-$PYTHON_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 4: Build Octave (requires many dependencies)
@@ -81,8 +81,8 @@ RUN set -xe && \
     cd /tmp/octave-build && \
     ./configure \
       --prefix=/usr/local/octave-$OCTAVE_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 5: Install Java (OpenJDK)
@@ -109,8 +109,8 @@ RUN set -xe && \
     cd /tmp/bash-build && \
     ./configure \
       --prefix=/usr/local/bash-$BASH_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 7: Build Haskell (GHC)
@@ -128,7 +128,7 @@ RUN set -xe && \
     cd /tmp/ghc-build && \
     ./configure \
       --prefix=/usr/local/ghc-$HASKELL_VERSION && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 8: Build Mono (C#)
@@ -146,8 +146,8 @@ RUN set -xe && \
     cd /tmp/mono-build && \
     ./configure \
       --prefix=/usr/local/mono-$MONO_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 9: Build Node.js
@@ -162,8 +162,8 @@ RUN set -xe && \
     cd /tmp/node-build && \
     ./configure \
       --prefix=/usr/local/node-$NODE_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 10: Build Erlang
@@ -182,8 +182,8 @@ RUN set -xe && \
     ./otp_build autoconf && \
     ./configure \
       --prefix=/usr/local/erlang-$ERLANG_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/* && \
     ln -s /usr/local/erlang-$ERLANG_VERSION/bin/erl /usr/local/bin/erl
 
@@ -235,8 +235,8 @@ RUN set -xe && \
     ./configure \
       -prefix /usr/local/ocaml-$OCAML_VERSION \
       --disable-ocamldoc --disable-debugger && \
-    make -j$(nproc) world.opt && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" world.opt && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 15: Build PHP
@@ -255,8 +255,8 @@ RUN set -xe && \
     ./buildconf --force && \
     ./configure \
       --prefix=/usr/local/php-$PHP_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 16: Install D (DMD)
@@ -304,9 +304,9 @@ RUN set -xe && \
     cd /tmp/nasm-build && \
     ./configure \
       --prefix=/usr/local/nasm-$NASM_VERSION && \
-    make -j$(nproc) nasm ndisasm && \
-    make -j$(nproc) strip && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" nasm ndisasm && \
+    make -j"$(nproc)" strip && \
+    make -j"$(nproc)" install && \
     echo "/usr/local/nasm-$NASM_VERSION/bin/nasm -o main.o \$@ && ld main.o" >> /usr/local/nasm-$NASM_VERSION/bin/nasmld && \
     chmod +x /usr/local/nasm-$NASM_VERSION/bin/nasmld && \
     rm -rf /tmp/*
@@ -323,8 +323,8 @@ RUN set -xe && \
     cd /tmp/gprolog-build/src && \
     ./configure \
       --prefix=/usr/local/gprolog-$GPROLOG_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install-strip && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install-strip && \
     rm -rf /tmp/*
 
 # Stage 21: Install SBCL (Common Lisp)
@@ -355,8 +355,8 @@ RUN set -xe && \
     cd /tmp/gnucobol-build && \
     ./configure \
       --prefix=/usr/local/gnucobol-$COBOL_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 23: Install Swift
@@ -407,8 +407,8 @@ RUN set -xe && \
     cd /tmp/r-build && \
     ./configure \
       --prefix=/usr/local/r-$R_VERSION && \
-    make -j$(nproc) && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
 # Stage 27: Install SQLite
@@ -482,7 +482,7 @@ RUN set -xe && \
     git clone https://github.com/judge0/isolate.git /tmp/isolate && \
     cd /tmp/isolate && \
     git checkout ad39cc4d0fbb577fb545910095c9da5ef8fc9a1a && \
-    make -j$(nproc) install && \
+    make -j"$(nproc)" install && \
     rm -rf /tmp/*
 ENV BOX_ROOT=/var/local/lib/isolate
 
