@@ -69,7 +69,7 @@ ENV OCTAVE_VERSIONS \
       10.3.0
 RUN set -xe && \
     apt update && \
-    apt install -y sudo apt install libopenblas-dev liblapack-dev libpcre2-dev libarpack2-dev \
+    apt install -y libopenblas-dev liblapack-dev libpcre2-dev libarpack2-dev \
     libcurl4-gnutls-dev epstool libfftw3-dev fig2dev libfltk1.3-dev \
     libfontconfig1-dev libfreetype-dev libgl2ps-dev libglpk-dev libreadline-dev \
     gnuplot libgraphicsmagick++1-dev libhdf5-dev openjdk-21-jdk libsndfile1-dev \
