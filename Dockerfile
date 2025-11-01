@@ -69,7 +69,7 @@ ENV OCTAVE_VERSIONS \
       10.3.0
 RUN set -xe && \
     apt update && \
-    apt install -y libopenblas-dev liblapack-dev libpcre2-dev libarpack2-dev \
+    apt install -y --no-install-recommends libopenblas-dev liblapack-dev libpcre2-dev libarpack2-dev \
     libcurl4-gnutls-dev epstool libfftw3-dev fig2dev libfltk1.3-dev \
     libfontconfig1-dev libfreetype-dev libgl2ps-dev libglpk-dev libreadline-dev \
     gnuplot libgraphicsmagick++1-dev libhdf5-dev openjdk-21-jdk libsndfile1-dev \
@@ -136,8 +136,8 @@ RUN set -xe && \
 ENV HASKELL_VERSIONS \
       9.12.2
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libgmp-dev libtinfo5 && \
+    apt update && \
+    apt install -y --no-install-recommends libgmp-dev libnuma-dev libncurses-dev  && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $HASKELL_VERSIONS; do \
       curl -fSsL "https://downloads.haskell.org/~ghc/$VERSION/ghc-$VERSION-x86_64-deb12-linux.tar.xz" -o /tmp/ghc-$VERSION.tar.xz && \
@@ -155,8 +155,8 @@ RUN set -xe && \
 ENV MONO_VERSIONS \
       6.12.0.206
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends cmake && \
+    apt update && \
+    apt install -y --no-install-recommends cmake && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $MONO_VERSIONS; do \
       curl -fSsL "https://download.mono-project.com/sources/mono/mono-$VERSION.tar.xz" -o /tmp/mono-$VERSION.tar.xz && \
@@ -192,8 +192,8 @@ RUN set -xe && \
 ENV ERLANG_VERSIONS \
       28.1.1
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends unzip && \
+    apt update && \
+    apt install -y --no-install-recommends unzip && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $ERLANG_VERSIONS; do \
       curl -fSsL "https://github.com/erlang/otp/releases/download/OTP-$VERSION/otp_src_$VERSION.tar.gz" -o /tmp/erlang-$VERSION.tar.gz && \
@@ -214,8 +214,8 @@ RUN set -xe && \
 # ENV ELIXIR_VERSIONS \
 #       1.19.1
 # RUN set -xe && \
-#     apt-get update && \
-#     apt-get install -y --no-install-recommends unzip && \
+#     apt update && \
+#     apt install -y --no-install-recommends unzip && \
 #     rm -rf /var/lib/apt/lists/* && \
 #     for VERSION in $ELIXIR_VERSIONS; do \
 #       curl -fSsL "https://github.com/elixir-lang/elixir/releases/download/v$VERSION/Precompiled.zip" -o /tmp/elixir-$VERSION.zip && \
@@ -283,8 +283,8 @@ RUN set -xe && \
 ENV PHP_VERSIONS \
       8.4
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends bison re2c && \
+    apt update && \
+    apt install -y --no-install-recommends bison re2c && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $PHP_VERSIONS; do \
       curl -fSsL "https://codeload.github.com/php/php-src/tar.gz/php-$VERSION" -o /tmp/php-$VERSION.tar.gz && \
@@ -329,8 +329,8 @@ ENV TYPESCRIPT_VERSIONS \
       5.9.3
 RUN set -xe && \
     curl -fSsL "https://deb.nodesource.com/setup_22.x" | bash - && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
+    apt update && \
+    apt install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $TYPESCRIPT_VERSIONS; do \
       npm install -g typescript@$VERSION; \
@@ -377,8 +377,8 @@ RUN set -xe && \
 ENV SBCL_VERSIONS \
       2.5.10
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends bison re2c && \
+    apt update && \
+    apt install -y --no-install-recommends bison re2c && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $SBCL_VERSIONS; do \
       curl -fSsL "https://downloads.sourceforge.net/project/sbcl/sbcl/$VERSION/sbcl-$VERSION-x86-64-linux-binary.tar.bz2" -o /tmp/sbcl-$VERSION.tar.bz2 && \
@@ -411,8 +411,8 @@ RUN set -xe && \
 ENV SWIFT_VERSIONS \
       6.2
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libncurses5 && \
+    apt update && \
+    apt install -y --no-install-recommends libncurses5 && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $SWIFT_VERSIONS; do \
       curl -fSsL "https://download.swift.org/swift-$VERSION-release/ubuntu2404/swift-$VERSION-RELEASE/swift-$VERSION-RELEASE-ubuntu24.04.tar.gz" -o /tmp/swift-$VERSION.tar.gz && \
@@ -436,16 +436,16 @@ RUN set -xe && \
 # Check for latest version here: https://packages.debian.org/buster/clang-7
 # Used for additional compilers for C, C++ and used for Objective-C.
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends clang-14 gnustep-devel && \
+    apt update && \
+    apt install -y --no-install-recommends clang-14 gnustep-devel && \
     rm -rf /var/lib/apt/lists/*
 
 # Check for latest version here: https://cloud.r-project.org/src/base
 ENV R_VERSIONS \
       4.5.2
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libpcre2-dev && \
+    apt update && \
+    apt install -y --no-install-recommends libpcre2-dev && \
     rm -rf /var/lib/apt/lists/* && \
     for VERSION in $R_VERSIONS; do \
       curl -fSsL "https://cloud.r-project.org/src/base/R-4/R-$VERSION.tar.gz" -o /tmp/r-$VERSION.tar.gz && \
@@ -463,8 +463,8 @@ RUN set -xe && \
 # Check for latest version here: https://packages.debian.org/buster/sqlite3
 # Used for support of SQLite.
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends sqlite3 && \
+    apt update && \
+    apt install -y --no-install-recommends sqlite3 && \
     rm -rf /var/lib/apt/lists/*
 
 # Check for latest version here: https://scala-lang.org
@@ -483,8 +483,8 @@ RUN set -xe && \
 # Check for latest version here: https://github.com/clojure/clojure/releases
 ENV CLOJURE_VERSION 1.12.3
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends maven && \
+    apt update && \
+    apt install -y --no-install-recommends maven && \
     cd /tmp && \
     git clone https://github.com/clojure/clojure && \
     cd clojure && \
@@ -492,7 +492,7 @@ RUN set -xe && \
     mvn -Plocal -Dmaven.test.skip=true package && \
     mkdir /usr/local/clojure-$CLOJURE_VERSION && \
     cp clojure.jar /usr/local/clojure-$CLOJURE_VERSION && \
-    apt-get remove --purge -y maven && \
+    apt remove --purge -y maven && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Check for latest version here: https://github.com/dotnet/sdk/releases
@@ -509,16 +509,16 @@ RUN set -xe && \
     rm -rf /tmp/*
 
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends locales && \
+    apt update && \
+    apt install -y --no-install-recommends locales && \
     rm -rf /var/lib/apt/lists/* && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 RUN set -xe && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends git libcap-dev && \
+    apt update && \
+    apt install -y --no-install-recommends git libcap-dev && \
     rm -rf /var/lib/apt/lists/* && \
     git clone https://github.com/judge0/isolate.git /tmp/isolate && \
     cd /tmp/isolate && \
