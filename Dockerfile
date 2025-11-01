@@ -123,7 +123,7 @@ ENV FPC_VERSIONS \
       3.2.2
 RUN set -xe && \
     for VERSION in $FPC_VERSIONS; do \
-      curl -fSsL "ftp://ftp.freepascal.org/fpc/dist/$VERSION/x86_64-linux/fpc-$VERSION.x86_64-linux.tar" -o /tmp/fpc-$VERSION.tar && \
+      curl -fSsL "http://downloads.freepascal.org/fpc/dist/$VERSION/x86_64-linux/fpc-$VERSION.x86_64-linux.tar" -o /tmp/fpc-$VERSION.tar && \
       mkdir /tmp/fpc-$VERSION && \
       tar -xf /tmp/fpc-$VERSION.tar -C /tmp/fpc-$VERSION --strip-components=1 && \
       rm /tmp/fpc-$VERSION.tar && \
