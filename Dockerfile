@@ -118,19 +118,19 @@ RUN set -xe && \
       rm -rf /tmp/*; \
     done
 
-# Check for latest version here: https://www.freepascal.org/download.html
-ENV FPC_VERSIONS \
-      3.2.2
-RUN set -xe && \
-    for VERSION in $FPC_VERSIONS; do \
-      curl -fSsL "http://downloads.freepascal.org/fpc/dist/$VERSION/x86_64-linux/fpc-$VERSION.x86_64-linux.tar" -o /tmp/fpc-$VERSION.tar && \
-      mkdir /tmp/fpc-$VERSION && \
-      tar -xf /tmp/fpc-$VERSION.tar -C /tmp/fpc-$VERSION --strip-components=1 && \
-      rm /tmp/fpc-$VERSION.tar && \
-      cd /tmp/fpc-$VERSION && \
-      echo "/usr/local/fpc-$VERSION" | sh install.sh && \
-      rm -rf /tmp/*; \
-    done
+# # Check for latest version here: https://www.freepascal.org/download.html
+# ENV FPC_VERSIONS \
+#       3.2.2
+# RUN set -xe && \
+#     for VERSION in $FPC_VERSIONS; do \
+#       curl -fSsL "http://downloads.freepascal.org/fpc/dist/$VERSION/x86_64-linux/fpc-$VERSION.x86_64-linux.tar" -o /tmp/fpc-$VERSION.tar && \
+#       mkdir /tmp/fpc-$VERSION && \
+#       tar -xf /tmp/fpc-$VERSION.tar -C /tmp/fpc-$VERSION --strip-components=1 && \
+#       rm /tmp/fpc-$VERSION.tar && \
+#       cd /tmp/fpc-$VERSION && \
+#       echo "/usr/local/fpc-$VERSION" | sh install.sh && \
+#       rm -rf /tmp/*; \
+#     done
 
 # Check for latest version here: https://www.haskell.org/ghc/download.html
 ENV HASKELL_VERSIONS \
