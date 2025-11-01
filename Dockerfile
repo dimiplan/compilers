@@ -147,7 +147,7 @@ RUN set -xe && \
 # Stage 9: Build Mono (C#)
 FROM haskell-stage AS mono-stage
 # Check for latest version here: https://www.mono-project.com/download/stable
-ENV MONO_VERSION=6.12.0.206
+ENV MONO_VERSION=6.12.0.199
 RUN set -xe && \
     apt update && \
     apt install -y --no-install-recommends cmake && \
