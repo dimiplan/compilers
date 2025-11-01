@@ -55,8 +55,8 @@ jobs:
           echo "Checking version consistency across Dockerfile and tests..."
           errors=0
           
-          # Sample version checks
-          gcc_version=$(grep -A 1 'ENV GCC_VERSIONS' Dockerfile | tail -1 | xargs)
+          # Sample version checks (updated for singular VERSION env vars)
+          gcc_version=$(grep 'ENV GCC_VERSION=' Dockerfile | cut -d'=' -f2)
           gcc_test=$(grep '^VERSIONS=' tests/gcc/lang.properties | cut -d'"' -f2)
           if [ "$gcc_version" != "$gcc_test" ]; then
             echo "❌ GCC version mismatch: Dockerfile=$gcc_version, Test=$gcc_test"
@@ -65,7 +65,7 @@ jobs:
             echo "✓ GCC: $gcc_version"
           fi
           
-          python_version=$(grep -A 1 'ENV PYTHON_VERSIONS' Dockerfile | tail -1 | xargs)
+          python_version=$(grep 'ENV PYTHON_VERSION=' Dockerfile | cut -d'=' -f2)
           python_test=$(grep '^VERSIONS=' tests/python/lang.properties | cut -d'"' -f2)
           if [ "$python_version" != "$python_test" ]; then
             echo "❌ Python version mismatch: Dockerfile=$python_version, Test=$python_test"
@@ -74,7 +74,7 @@ jobs:
             echo "✓ Python: $python_version"
           fi
           
-          node_version=$(grep -A 1 'ENV NODE_VERSIONS' Dockerfile | tail -1 | xargs)
+          node_version=$(grep 'ENV NODE_VERSION=' Dockerfile | cut -d'=' -f2)
           node_test=$(grep '^VERSIONS=' tests/node/lang.properties | cut -d'"' -f2)
           if [ "$node_version" != "$node_test" ]; then
             echo "❌ Node version mismatch: Dockerfile=$node_version, Test=$node_test"
@@ -122,6 +122,9 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
 
+      # Build Docker image using multi-stage Dockerfile
+      # Each stage is cached independently, so if a build fails at a later stage,
+      # earlier stages are preserved and don't need to be rebuilt
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
@@ -129,6 +132,7 @@ jobs:
           push: false
           load: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
+          target: final
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
@@ -276,6 +280,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          target: final
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
