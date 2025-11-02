@@ -1,7 +1,4 @@
 # Compilers
-<a href="https://www.producthunt.com/posts/judge0-ide" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=179885&theme=light" alt="" height="43px" /></a>
-<a href="https://patreon.com/hermanzdosilovic" target="_blank"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" alt="" height="43px" /></a>
-<a href="https://paypal.me/hermanzdosilovic" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" alt="Donate with PayPal" height="43px" /></a>
 
 ## About
 This is a Docker image with installed compilers, interpreters, and [sandbox](https://github.com/ioi/isolate). It is used as a base image for [Judge0](https://github.com/judge0/judge0).
@@ -36,255 +33,93 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 <td style="text-align:center">2</td>
 <td style="text-align:center">Bash (5.3)</td>
 </tr>
-<!--<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">Basic (FBC 1.10.1)</td>
-</tr>-->
 <tr>
-<td style="text-align:center">4</td>
+<td style="text-align:center">3</td>
 <td style="text-align:center">C (Clang 14.0.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">5</td>
+<td style="text-align:center">4</td>
 <td style="text-align:center">C (GCC 15.2.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">6</td>
+<td style="text-align:center">5</td>
 <td style="text-align:center">C# (Mono 6.12.0.206)</td>
 </tr>
 <tr>
-<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
 <td style="text-align:center">C++ (Clang 14.0.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
 <td style="text-align:center">C++ (GCC 15.2.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">9</td>
-<td style="text-align:center">Clojure (1.12.3)</td>
-</tr>
-<tr>
-<td style="text-align:center">10</td>
-<td style="text-align:center">COBOL (GnuCOBOL 3.2)</td>
-</tr>
-<!--<tr>
-<td style="text-align:center">11</td>
-<td style="text-align:center">Common Lisp (SBCL 2.5.10)</td>
-</tr>-->
-<tr>
-<td style="text-align:center">12</td>
-<td style="text-align:center">D (DMD 2.111.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">13</td>
-<td style="text-align:center">Elixir (1.9.4)</td>
-</tr>
-<tr>
-<td style="text-align:center">14</td>
-<td style="text-align:center">Erlang (OTP 28.1.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">15</td>
+<td style="text-align:center">8</td>
 <td style="text-align:center">Executable</td>
 </tr>
 <tr>
-<td style="text-align:center">16</td>
-<td style="text-align:center">F# (.NET Core SDK 9.0.306)</td>
-</tr>
-<tr>
-<td style="text-align:center">17</td>
-<td style="text-align:center">Fortran (GFortran 15.2.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">18</td>
+<td style="text-align:center">9</td>
 <td style="text-align:center">Go (1.25.3)</td>
 </tr>
 <tr>
-<td style="text-align:center">19</td>
-<td style="text-align:center">Groovy (5.0.2)</td>
-</tr>
-<tr>
-<td style="text-align:center">20</td>
+<td style="text-align:center">10</td>
 <td style="text-align:center">Haskell (GHC 9.12.2)</td>
 </tr>
 <tr>
-<td style="text-align:center">21</td>
+<td style="text-align:center">11</td>
 <td style="text-align:center">Java (OpenJDK 25.0.1)</td>
 </tr>
 <tr>
-<td style="text-align:center">22</td>
+<td style="text-align:center">12</td>
 <td style="text-align:center">JavaScript (Node.js 24.11.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">23</td>
-<td style="text-align:center">Kotlin (2.2.21)</td>
-</tr>
-<!--<tr>
-<td style="text-align:center">24</td>
-<td style="text-align:center">Lua (5.4.8)</td>
-</tr>-->
-<tr>
-<td style="text-align:center">25</td>
-<td style="text-align:center">Objective-C (Clang 14.0.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">26</td>
-<td style="text-align:center">OCaml (5.4.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">27</td>
-<td style="text-align:center">Octave (10.3.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">28</td>
-<td style="text-align:center">Pascal (FPC 3.2.2)</td>
-</tr>
-<tr>
-<td style="text-align:center">29</td>
-<td style="text-align:center">Perl (5.28.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">30</td>
-<td style="text-align:center">PHP (8.4)</td>
-</tr>
-<tr>
-<td style="text-align:center">31</td>
-<td style="text-align:center">Plain Text</td>
-</tr>
-<tr>
-<td style="text-align:center">32</td>
-<td style="text-align:center">Prolog (GNU Prolog 1.5.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">33</td>
-<td style="text-align:center">Python (3.14.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">34</td>
-<td style="text-align:center">R (4.5.2)</td>
-</tr>
-<tr>
-<td style="text-align:center">35</td>
-<td style="text-align:center">Ruby (3.4.7)</td>
-</tr>
-<tr>
-<td style="text-align:center">36</td>
-<td style="text-align:center">Rust (1.91.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">37</td>
-<td style="text-align:center">Scala (3.3.6)</td>
-</tr>
-<tr>
-<td style="text-align:center">38</td>
-<td style="text-align:center">SQL (SQLite 3.27.2)</td>
-</tr>
-<tr>
-<td style="text-align:center">39</td>
-<td style="text-align:center">Swift (6.2)</td>
-</tr>
-<tr>
-<td style="text-align:center">40</td>
-<td style="text-align:center">TypeScript (5.9.3)</td>
-</tr>
-<tr>
-<td style="text-align:center">41</td>
-<td style="text-align:center">Visual Basic<span>.</span>Net (vbnc 0.0.0.5943)</td>
-</tr>
-</tbody>
-</table>
-</details>
-
-### [Judge0 Extra](https://rapidapi.com/hermanzdosilovic/api/judge0-extra/pricing)
-<details><summary>Click here to expand the list</summary>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">#</th>
-<th style="text-align:center">Name</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">Bosque (latest)</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">C (Clang 10.0.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">C (Clang 9.0.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center">C# (.NET Core SDK 3.1.406)</td>
-</tr>
-<tr>
-<td style="text-align:center">5</td>
-<td style="text-align:center">C# (Mono 6.12.0.122)</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
-<td style="text-align:center">C# Test (.NET Core SDK 3.1.406, NUnit 3.12.0)</td>
-</tr>
-<tr>
-<td style="text-align:center">7</td>
-<td style="text-align:center">C++ (Clang 10.0.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">8</td>
-<td style="text-align:center">C++ (Clang 9.0.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">9</td>
-<td style="text-align:center">C++ Test (Clang 10.0.1, Google Test 1.8.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">10</td>
-<td style="text-align:center">C++ Test (GCC 8.4.0, Google Test 1.8.1)</td>
-</tr>
-<tr>
-<td style="text-align:center">11</td>
-<td style="text-align:center">C3 (latest)</td>
-</tr>
-<tr>
-<td style="text-align:center">12</td>
-<td style="text-align:center">F# (.NET Core SDK 3.1.406)</td>
-</tr>
-<tr>
 <td style="text-align:center">13</td>
-<td style="text-align:center">Java (OpenJDK 14.0.1)</td>
+<td style="text-align:center">Kotlin (2.2.21)</td>
 </tr>
 <tr>
 <td style="text-align:center">14</td>
-<td style="text-align:center">Java Test (OpenJDK 14.0.1, JUnit Platform Console Standalone 1.6.2)</td>
+<td style="text-align:center">Objective-C (Clang 14.0.0)</td>
 </tr>
 <tr>
 <td style="text-align:center">15</td>
-<td style="text-align:center">MPI (OpenRTE 3.1.3) with C (GCC 8.4.0)</td>
+<td style="text-align:center">OCaml (5.4.0)</td>
 </tr>
 <tr>
 <td style="text-align:center">16</td>
-<td style="text-align:center">MPI (OpenRTE 3.1.3) with C++ (GCC 8.4.0)</td>
+<td style="text-align:center">Perl (5.28.1)</td>
 </tr>
 <tr>
 <td style="text-align:center">17</td>
-<td style="text-align:center">MPI (OpenRTE 3.1.3) with Python (3.7.7)</td>
+<td style="text-align:center">PHP (8.4)</td>
 </tr>
 <tr>
 <td style="text-align:center">18</td>
-<td style="text-align:center">Nim (stable)</td>
+<td style="text-align:center">Plain Text</td>
 </tr>
 <tr>
 <td style="text-align:center">19</td>
-<td style="text-align:center">Python for ML (3.7.7)</td>
+<td style="text-align:center">Python (3.14.0)</td>
 </tr>
 <tr>
 <td style="text-align:center">20</td>
-<td style="text-align:center">Visual Basic<span>.</span>Net (vbnc 0.0.0.5943)</td>
+<td style="text-align:center">Ruby (3.4.7)</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">Rust (1.91.0)</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">SQL (SQLite 3.27.2)</td>
+</tr>
+<tr>
+<td style="text-align:center">23</td>
+<td style="text-align:center">Swift (6.2)</td>
+</tr>
+<tr>
+<td style="text-align:center">24</td>
+<td style="text-align:center">TypeScript (5.9.3)</td>
 </tr>
 </tbody>
 </table>
