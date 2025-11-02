@@ -36,10 +36,10 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 <td style="text-align:center">2</td>
 <td style="text-align:center">Bash (5.3)</td>
 </tr>
-<tr>
+<!--<tr>
 <td style="text-align:center">3</td>
 <td style="text-align:center">Basic (FBC 1.10.1)</td>
-</tr>
+</tr>-->
 <tr>
 <td style="text-align:center">4</td>
 <td style="text-align:center">C (Clang 14.0.0)</td>
@@ -68,10 +68,10 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 <td style="text-align:center">10</td>
 <td style="text-align:center">COBOL (GnuCOBOL 3.2)</td>
 </tr>
-<tr>
+<!--<tr>
 <td style="text-align:center">11</td>
 <td style="text-align:center">Common Lisp (SBCL 2.5.10)</td>
-</tr>
+</tr>-->
 <tr>
 <td style="text-align:center">12</td>
 <td style="text-align:center">D (DMD 2.111.0)</td>
@@ -120,10 +120,10 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 <td style="text-align:center">23</td>
 <td style="text-align:center">Kotlin (2.2.21)</td>
 </tr>
-<tr>
+<!--<tr>
 <td style="text-align:center">24</td>
 <td style="text-align:center">Lua (5.4.8)</td>
-</tr>
+</tr>-->
 <tr>
 <td style="text-align:center">25</td>
 <td style="text-align:center">Objective-C (Clang 14.0.0)</td>

@@ -225,18 +225,18 @@ RUN set -xe && \
     tar -xf /tmp/go.tar.gz -C /usr/local/go-$GO_VERSION --strip-components=1 && \
     rm -rf /tmp/*
 
-# Stage 14: Install FreeBASIC
-FROM go-stage AS fbc-stage
-# Check for latest version here: https://sourceforge.net/projects/fbc/files/Binaries%20-%20Linux
-ENV FBC_VERSION=1.10.1
-RUN set -xe && \
-    curl -fSsL "https://downloads.sourceforge.net/project/fbc/Binaries%20-%20Linux/FreeBASIC-$FBC_VERSION-linux-x86_64.tar.gz" -o /tmp/fbc.tar.gz && \
-    mkdir /usr/local/fbc-$FBC_VERSION && \
-    tar -xf /tmp/fbc.tar.gz -C /usr/local/fbc-$FBC_VERSION --strip-components=1 && \
-    rm -rf /tmp/*
+# # Stage 14: Install FreeBASIC
+# FROM go-stage AS fbc-stage
+# # Check for latest version here: https://sourceforge.net/projects/fbc/files/Binaries%20-%20Linux
+# ENV FBC_VERSION=1.10.1
+# RUN set -xe && \
+#     curl -fSsL "https://downloads.sourceforge.net/project/fbc/Binaries%20-%20Linux/FreeBASIC-$FBC_VERSION-linux-x86_64.tar.gz" -o /tmp/fbc.tar.gz && \
+#     mkdir /usr/local/fbc-$FBC_VERSION && \
+#     tar -xf /tmp/fbc.tar.gz -C /usr/local/fbc-$FBC_VERSION --strip-components=1 && \
+#     rm -rf /tmp/*
 
 # Stage 15: Build OCaml
-FROM fbc-stage AS ocaml-stage
+FROM go-stage AS ocaml-stage
 # Check for latest version here: https://github.com/ocaml/ocaml/releases
 ENV OCAML_VERSION=5.4.0
 RUN set -xe && \
@@ -283,19 +283,19 @@ RUN set -xe && \
     rm -rf /usr/local/d-$D_VERSION/linux/*32 && \
     rm -rf /tmp/*
 
-# Stage 18: Install Lua
-FROM d-stage AS lua-stage
-# Check for latest version here: https://www.lua.org/download.html
-ENV LUA_VERSION=5.4.8
-RUN set -xe && \
-    curl -fSsL "https://downloads.sourceforge.net/project/luabinaries/$LUA_VERSION/Tools%20Executables/lua-${LUA_VERSION}_Linux44_64_bin.tar.gz" -o /tmp/lua.tar.gz && \
-    mkdir /usr/local/lua-$LUA_VERSION && \
-    tar -xf /tmp/lua.tar.gz -C /usr/local/lua-$LUA_VERSION && \
-    rm -rf /tmp/* && \
-    ln -s /lib/x86_64-linux-gnu/libreadline.so.7 /lib/x86_64-linux-gnu/libreadline.so.6
+# # Stage 18: Install Lua
+# FROM d-stage AS lua-stage
+# # Check for latest version here: https://www.lua.org/download.html
+# ENV LUA_VERSION=5.4.8
+# RUN set -xe && \
+#     curl -fSsL "https://downloads.sourceforge.net/project/luabinaries/$LUA_VERSION/Tools%20Executables/lua-${LUA_VERSION}_Linux44_64_bin.tar.gz" -o /tmp/lua.tar.gz && \
+#     mkdir /usr/local/lua-$LUA_VERSION && \
+#     tar -xf /tmp/lua.tar.gz -C /usr/local/lua-$LUA_VERSION && \
+#     rm -rf /tmp/* && \
+#     ln -s /lib/x86_64-linux-gnu/libreadline.so.7 /lib/x86_64-linux-gnu/libreadline.so.6
 
 # Stage 19: Install TypeScript
-FROM lua-stage AS typescript-stage
+FROM d-stage AS typescript-stage
 # Check for latest version here: https://github.com/microsoft/TypeScript/releases
 ENV TYPESCRIPT_VERSION=5.9.3
 RUN set -xe && \
@@ -340,24 +340,24 @@ RUN set -xe && \
     make -j"$(nproc)" install-strip && \
     rm -rf /tmp/*
 
-# Stage 22: Install SBCL (Common Lisp)
-FROM gprolog-stage AS sbcl-stage
-# Check for latest version here: http://www.sbcl.org/platform-table.html
-ENV SBCL_VERSION=2.5.10
-RUN set -xe && \
-    apt update && \
-    apt install -y --no-install-recommends bison re2c && \
-    rm -rf /var/lib/apt/lists/* && \
-    curl -fSsL "https://downloads.sourceforge.net/project/sbcl/sbcl/$SBCL_VERSION/sbcl-$SBCL_VERSION-x86-64-linux-binary.tar.bz2" -o /tmp/sbcl.tar.bz2 && \
-    mkdir /tmp/sbcl-build && \
-    tar -xf /tmp/sbcl.tar.bz2 -C /tmp/sbcl-build --strip-components=1 && \
-    cd /tmp/sbcl-build && \
-    export INSTALL_ROOT=/usr/local/sbcl-$SBCL_VERSION && \
-    sh install.sh && \
-    rm -rf /tmp/*
+# # Stage 22: Install SBCL (Common Lisp)
+# FROM gprolog-stage AS sbcl-stage
+# # Check for latest version here: http://www.sbcl.org/platform-table.html
+# ENV SBCL_VERSION=2.5.10
+# RUN set -xe && \
+#     apt update && \
+#     apt install -y --no-install-recommends bison re2c && \
+#     rm -rf /var/lib/apt/lists/* && \
+#     curl -fSsL "https://downloads.sourceforge.net/project/sbcl/sbcl/$SBCL_VERSION/sbcl-$SBCL_VERSION-x86-64-linux-binary.tar.bz2" -o /tmp/sbcl.tar.bz2 && \
+#     mkdir /tmp/sbcl-build && \
+#     tar -xf /tmp/sbcl.tar.bz2 -C /tmp/sbcl-build --strip-components=1 && \
+#     cd /tmp/sbcl-build && \
+#     export INSTALL_ROOT=/usr/local/sbcl-$SBCL_VERSION && \
+#     sh install.sh && \
+#     rm -rf /tmp/*
 
 # Stage 23: Build GnuCOBOL
-FROM sbcl-stage AS cobol-stage
+FROM gprolog-stage AS cobol-stage
 # Check for latest version here: https://ftpmirror.gnu.org/gnu/gnucobol
 ENV COBOL_VERSION=3.2
 RUN set -xe && \
