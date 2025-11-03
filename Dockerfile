@@ -2,7 +2,7 @@
 # Each stage can be cached independently, preventing full rebuilds on errors
 
 # Check for latest version here: https://hub.docker.com/_/buildpack-deps?tab=tags&page=1&ordering=last_updated
-FROM buildpack-deps:stable AS base
+FROM --platform=linux/amd64 buildpack-deps:stable AS base
 
 # Stage 1: Build GCC compiler suite (C, C++, Fortran)
 FROM base AS gcc-stage
