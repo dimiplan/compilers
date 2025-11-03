@@ -183,7 +183,7 @@ FROM nasm-stage AS swift-stage
 ENV SWIFT_VERSION=6.2
 RUN set -xe && \
     apt update && \
-    apt install -y --no-install-recommends libncurses6 libcurses-dev && \
+    apt install -y --no-install-recommends libncurses6 && \
     rm -rf /var/lib/apt/lists/* && \
     curl -fSsL "https://download.swift.org/swift-$SWIFT_VERSION-release/ubuntu2404/swift-$SWIFT_VERSION-RELEASE/swift-$SWIFT_VERSION-RELEASE-ubuntu24.04.tar.gz" -o /tmp/swift.tar.gz && \
     mkdir /usr/local/swift-$SWIFT_VERSION && \
