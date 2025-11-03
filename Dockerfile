@@ -19,9 +19,9 @@ RUN set -xe && \
     tmpdir="$(mktemp -d)" && \
     cd "$tmpdir" && \
     /tmp/gcc-build/configure \
-      --disable-multilib \
-      --enable-languages=c,c++ \
-      --prefix=/usr/local/gcc-$GCC_VERSION && \
+    --disable-multilib \
+    --enable-languages=c,c++ \
+    --prefix=/usr/local/gcc-$GCC_VERSION && \
     make -j"$(nproc)" && \
     make -j"$(nproc)" install-strip && \
     rm -rf /tmp/*
@@ -37,8 +37,8 @@ RUN set -xe && \
     rm /tmp/ruby.tar.gz && \
     cd /tmp/ruby-build && \
     ./configure \
-      --disable-install-doc \
-      --prefix=/usr/local/ruby-$RUBY_VERSION && \
+    --disable-install-doc \
+    --prefix=/usr/local/ruby-$RUBY_VERSION && \
     make -j"$(nproc)" && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
@@ -54,7 +54,7 @@ RUN set -xe && \
     rm /tmp/python.tar.xz && \
     cd /tmp/python-build && \
     ./configure \
-      --prefix=/usr/local/python-$PYTHON_VERSION && \
+    --prefix=/usr/local/python-$PYTHON_VERSION && \
     make -j"$(nproc)" && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
@@ -82,7 +82,7 @@ RUN set -xe && \
     rm /tmp/bash.tar.gz && \
     cd /tmp/bash-build && \
     ./configure \
-      --prefix=/usr/local/bash-$BASH_VERSION && \
+    --prefix=/usr/local/bash-$BASH_VERSION && \
     make -j"$(nproc)" && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
@@ -102,7 +102,7 @@ RUN set -xe && \
     rm /tmp/ghc.tar.xz && \
     cd /tmp/ghc-build && \
     ./configure \
-      --prefix=/usr/local/ghc-$HASKELL_VERSION && \
+    --prefix=/usr/local/ghc-$HASKELL_VERSION && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
@@ -117,7 +117,7 @@ RUN set -xe && \
     rm /tmp/node.tar.gz && \
     cd /tmp/node-build && \
     ./configure \
-      --prefix=/usr/local/node-$NODE_VERSION && \
+    --prefix=/usr/local/node-$NODE_VERSION && \
     make -j"$(nproc)" && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
@@ -133,8 +133,8 @@ RUN set -xe && \
     rm /tmp/rust.tar.gz && \
     cd /tmp/rust-build && \
     ./install.sh \
-      --prefix=/usr/local/rust-$RUST_VERSION \
-      --components=rustc,rust-std-x86_64-unknown-linux-gnu && \
+    --prefix=/usr/local/rust-$RUST_VERSION \
+    --components=rustc,rust-std-x86_64-unknown-linux-gnu && \
     rm -rf /tmp/*
 
 # Stage 9: Install Go
@@ -169,7 +169,7 @@ RUN set -xe && \
     rm /tmp/nasm.tar.gz && \
     cd /tmp/nasm-build && \
     ./configure \
-      --prefix=/usr/local/nasm-$NASM_VERSION && \
+    --prefix=/usr/local/nasm-$NASM_VERSION && \
     make -j"$(nproc)" nasm ndisasm && \
     make -j"$(nproc)" strip && \
     make -j"$(nproc)" install && \
@@ -207,7 +207,7 @@ FROM kotlin-stage AS clang-stage
 # Used for additional compilers for C, C++ and used for Objective-C.
 RUN set -xe && \
     apt update && \
-    apt install -y --no-install-recommends clang-14 gnustep-devel && \
+    apt install -y --no-install-recommends clang-19 gnustep-devel && \
     rm -rf /var/lib/apt/lists/*
 
 # Stage 15: Install SQLite

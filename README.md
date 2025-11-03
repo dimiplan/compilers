@@ -35,7 +35,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">3</td>
-<td style="text-align:center">C (Clang 14.0.0)</td>
+<td style="text-align:center">C (Clang 19.1.7)</td>
 </tr>
 <tr>
 <td style="text-align:center">4</td>
@@ -47,7 +47,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">6</td>
-<td style="text-align:center">C++ (Clang 14.0.0)</td>
+<td style="text-align:center">C++ (Clang 19.1.7)</td>
 </tr>
 <tr>
 <td style="text-align:center">7</td>
@@ -79,7 +79,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">14</td>
-<td style="text-align:center">Objective-C (Clang 14.0.0)</td>
+<td style="text-align:center">Objective-C (Clang 19.1.7)</td>
 </tr>
 <tr>
 <td style="text-align:center">15</td>
