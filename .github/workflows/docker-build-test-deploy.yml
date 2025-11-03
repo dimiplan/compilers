@@ -74,13 +74,13 @@ jobs:
             echo "✓ Python: $python_version"
           fi
           
-          node_version=$(grep 'ENV NODE_VERSION=' Dockerfile | cut -d'=' -f2)
-          node_test=$(grep '^VERSIONS=' tests/node/lang.properties | cut -d'"' -f2)
-          if [ "$node_version" != "$node_test" ]; then
-            echo "❌ Node version mismatch: Dockerfile=$node_version, Test=$node_test"
+          bun_version=$(grep 'ENV BUN_VERSION=' Dockerfile | cut -d'=' -f2)
+          bun_test=$(grep '^VERSIONS=' tests/node/lang.properties | cut -d'"' -f2)
+          if [ "$bun_version" != "$bun_test" ]; then
+            echo "❌ Bun version mismatch: Dockerfile=$bun_version, Test=$bun_test"
             ((errors++))
           else
-            echo "✓ Node: $node_version"
+            echo "✓ Bun: $bun_version"
           fi
           
           if [ $errors -gt 0 ]; then

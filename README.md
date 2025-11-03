@@ -71,7 +71,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">12</td>
-<td style="text-align:center">JavaScript (Node.js 24.11.0)</td>
+<td style="text-align:center">JavaScript (Bun 1.3.1)</td>
 </tr>
 <tr>
 <td style="text-align:center">13</td>
@@ -119,7 +119,7 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 <tr>
 <td style="text-align:center">24</td>
-<td style="text-align:center">TypeScript (5.9.3)</td>
+<td style="text-align:center">TypeScript (Bun 1.3.1)</td>
 </tr>
 </tbody>
 </table>

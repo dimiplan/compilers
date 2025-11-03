@@ -106,24 +106,20 @@ RUN set -xe && \
     make -j"$(nproc)" install && \
     rm -rf /tmp/*
 
-# Stage 7: Build Node.js
-FROM haskell-stage AS node-stage
-# Check for latest version here: https://nodejs.org/en
-ENV NODE_VERSION=24.11.0
+# Stage 7: Install Bun
+FROM haskell-stage AS bun-stage
+# Check for latest version here: https://github.com/oven-sh/bun/releases
+ENV BUN_VERSION=1.3.1
 RUN set -xe && \
-    curl -fSsL "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.gz" -o /tmp/node.tar.gz && \
-    mkdir /tmp/node-build && \
-    tar -xf /tmp/node.tar.gz -C /tmp/node-build --strip-components=1 && \
-    rm /tmp/node.tar.gz && \
-    cd /tmp/node-build && \
-    ./configure \
-    --prefix=/usr/local/node-$NODE_VERSION && \
-    make -j"$(nproc)" && \
-    make -j"$(nproc)" install && \
+    curl -fSsL "https://github.com/oven-sh/bun/releases/download/bun-v$BUN_VERSION/bun-linux-x64.zip" -o /tmp/bun.zip && \
+    unzip /tmp/bun.zip -d /tmp && \
+    mkdir -p /usr/local/bun-$BUN_VERSION/bin && \
+    mv /tmp/bun-linux-x64/bun /usr/local/bun-$BUN_VERSION/bin/bun && \
+    chmod +x /usr/local/bun-$BUN_VERSION/bin/bun && \
     rm -rf /tmp/*
 
 # Stage 8: Build Rust
-FROM node-stage AS rust-stage
+FROM bun-stage AS rust-stage
 # Check for latest version here: https://www.rust-lang.org
 ENV RUST_VERSION=1.91.0
 RUN set -xe && \
@@ -147,19 +143,8 @@ RUN set -xe && \
     tar -xf /tmp/go.tar.gz -C /usr/local/go-$GO_VERSION --strip-components=1 && \
     rm -rf /tmp/*
 
-# Stage 10: Install TypeScript
-FROM go-stage AS typescript-stage
-# Check for latest version here: https://github.com/microsoft/TypeScript/releases
-ENV TYPESCRIPT_VERSION=5.9.3
-RUN set -xe && \
-    curl -fSsL "https://deb.nodesource.com/setup_22.x" | bash - && \
-    apt update && \
-    apt install -y --no-install-recommends nodejs && \
-    rm -rf /var/lib/apt/lists/* && \
-    npm install -g typescript@$TYPESCRIPT_VERSION
-
-# Stage 11: Build NASM
-FROM typescript-stage AS nasm-stage
+# Stage 10: Build NASM
+FROM go-stage AS nasm-stage
 # Check for latest version here: https://nasm.us
 ENV NASM_VERSION=3.01
 RUN set -xe && \
@@ -177,7 +162,7 @@ RUN set -xe && \
     chmod +x /usr/local/nasm-$NASM_VERSION/bin/nasmld && \
     rm -rf /tmp/*
 
-# Stage 12: Install Swift
+# Stage 11: Install Swift
 FROM nasm-stage AS swift-stage
 # Check for latest version here: https://swift.org/download
 ENV SWIFT_VERSION=6.2
@@ -190,7 +175,7 @@ RUN set -xe && \
     tar -xf /tmp/swift.tar.gz -C /usr/local/swift-$SWIFT_VERSION --strip-components=2 && \
     rm -rf /tmp/*
 
-# Stage 13: Install Kotlin
+# Stage 12: Install Kotlin
 FROM swift-stage AS kotlin-stage
 # Check for latest version here: https://kotlinlang.org
 ENV KOTLIN_VERSION=2.2.21
@@ -201,7 +186,7 @@ RUN set -xe && \
     rm -rf /usr/local/kotlin-$KOTLIN_VERSION/kotlinc && \
     rm -rf /tmp/*
 
-# Stage 14: Install Clang and Objective-C support
+# Stage 13: Install Clang and Objective-C support
 FROM kotlin-stage AS clang-stage
 # Check for latest version here: https://packages.debian.org/buster/clang-7
 # Used for additional compilers for C, C++ and used for Objective-C.
@@ -210,7 +195,7 @@ RUN set -xe && \
     apt install -y --no-install-recommends clang-19 gnustep-devel && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage 15: Install SQLite
+# Stage 14: Install SQLite
 FROM clang-stage AS sqlite-stage
 # Check for latest version here: https://packages.debian.org/buster/sqlite3
 # Used for support of SQLite.
