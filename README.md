@@ -31,82 +31,78 @@ This is a fork of [judge0/compilers](https://github.com/judge0/compilers) to sup
 </tr>
 <tr>
 <td style="text-align:center">5</td>
-<td style="text-align:center">C# (Mono 6.12.0.206)</td>
-</tr>
-<tr>
-<td style="text-align:center">6</td>
 <td style="text-align:center">C++ (Clang 19.1.7)</td>
 </tr>
 <tr>
-<td style="text-align:center">7</td>
+<td style="text-align:center">6</td>
 <td style="text-align:center">C++ (GCC 15.2.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">8</td>
+<td style="text-align:center">7</td>
 <td style="text-align:center">Executable</td>
 </tr>
 <tr>
-<td style="text-align:center">9</td>
+<td style="text-align:center">8</td>
 <td style="text-align:center">Go (1.25.3)</td>
 </tr>
 <tr>
-<td style="text-align:center">10</td>
+<td style="text-align:center">9</td>
 <td style="text-align:center">Haskell (GHC 9.12.2)</td>
 </tr>
 <tr>
-<td style="text-align:center">11</td>
+<td style="text-align:center">10</td>
 <td style="text-align:center">Java (OpenJDK 25.0.1)</td>
 </tr>
 <tr>
-<td style="text-align:center">12</td>
+<td style="text-align:center">11</td>
 <td style="text-align:center">JavaScript (Bun 1.3.1)</td>
 </tr>
 <tr>
-<td style="text-align:center">13</td>
+<td style="text-align:center">12</td>
 <td style="text-align:center">Kotlin (2.2.21)</td>
 </tr>
 <tr>
-<td style="text-align:center">14</td>
+<td style="text-align:center">13</td>
 <td style="text-align:center">Objective-C (Clang 19.1.7)</td>
 </tr>
 <tr>
-<td style="text-align:center">15</td>
+<td style="text-align:center">14</td>
 <td style="text-align:center">OCaml (5.4.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">16</td>
+<td style="text-align:center">15</td>
 <td style="text-align:center">Perl (5.28.1)</td>
 </tr>
 <tr>
-<td style="text-align:center">17</td>
+<td style="text-align:center">16</td>
 <td style="text-align:center">PHP (8.4)</td>
 </tr>
 <tr>
-<td style="text-align:center">18</td>
+<td style="text-align:center">17</td>
 <td style="text-align:center">Plain Text</td>
 </tr>
 <tr>
-<td style="text-align:center">19</td>
+<td style="text-align:center">18</td>
 <td style="text-align:center">Python (3.14.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">20</td>
+<td style="text-align:center">19</td>
 <td style="text-align:center">Ruby (3.4.7)</td>
 </tr>
 <tr>
-<td style="text-align:center">21</td>
+<td style="text-align:center">20</td>
 <td style="text-align:center">Rust (1.91.0)</td>
 </tr>
 <tr>
-<td style="text-align:center">22</td>
+<td style="text-align:center">21</td>
 <td style="text-align:center">SQL (SQLite 3.27.2)</td>
 </tr>
 <tr>
-<td style="text-align:center">23</td>
+<td style="text-align:center">22</td>
 <td style="text-align:center">Swift (6.2)</td>
 </tr>
 <tr>
-<td style="text-align:center">24</td>
+<td style="text-align:center">23</td>
 <td style="text-align:center">TypeScript (Bun 1.3.1)</td>
 </tr>
 </tbody>
