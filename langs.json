@@ -1,0 +1,176 @@
+[
+    {
+        "id": 1,
+        "name": "Assembly (NASM 3.01)",
+        "is_archived": false,
+        "source_file": "main.asm",
+        "compile_cmd": "/usr/local/nasm-3.01/bin/nasmld -f elf64 %s main.asm",
+        "run_cmd": "./a.out"
+    },
+    {
+        "id": 2,
+        "name": "Bash (5.3)",
+        "is_archived": false,
+        "source_file": "script.sh",
+        "run_cmd": "/usr/local/bash-${VERSION%.*}/bin/bash script.sh"
+    },
+    {
+        "id": 3,
+        "name": "C (Clang 19.1.7)",
+        "is_archived": false,
+        "source_file": "main.c",
+        "compile_cmd": "/usr/bin/clang-19 %s main.c",
+        "run_cmd": "./a.out"
+    },
+    {
+        "id": 4,
+        "name": "C (GCC 15.2.0)",
+        "is_archived": false,
+        "source_file": "main.c",
+        "compile_cmd": "/usr/local/gcc-15.2.0/bin/gcc %s main.c",
+        "run_cmd": "./a.out"
+    },
+    {
+        "id": 5,
+        "name": "C++ (Clang 19.1.7)",
+        "is_archived": false,
+        "source_file": "main.cpp",
+        "compile_cmd": "/usr/bin/clang++-19 %s main.cpp",
+        "run_cmd": "./a.out"
+    },
+    {
+        "id": 6,
+        "name": "C++ (GCC 15.2.0)",
+        "is_archived": false,
+        "source_file": "main.cpp",
+        "compile_cmd": "/usr/local/gcc-15.2.0/bin/g++ %s main.cpp",
+        "run_cmd": "LD_LIBRARY_PATH=/usr/local/gcc-15.2.0/lib64 ./a.out"
+    },
+    {
+        "id": 7,
+        "name": "Executable",
+        "is_archived": false,
+        "source_file": "a.out",
+        "run_cmd": "/bin/chmod +x a.out && ./a.out"
+    },
+    {
+        "id": 8,
+        "name": "Fortran (GFortran 15.2.0)",
+        "is_archived": false,
+        "source_file": "main.f90",
+        "compile_cmd": "/usr/local/gcc-15.2.0/bin/gfortran %s main.f90",
+        "run_cmd": "LD_LIBRARY_PATH=/usr/local/gcc-15.2.0/lib64 ./a.out"
+    },
+    {
+        "id": 9,
+        "name": "Go (1.25.3)",
+        "is_archived": false,
+        "source_file": "main.go",
+        "compile_cmd": "GOCACHE=/tmp/.cache/go-build /usr/local/go-1.25.3/bin/go build %s main.go",
+        "run_cmd": "./main"
+    },
+    {
+        "id": 10,
+        "name": "Haskell (GHC 9.12.2)",
+        "is_archived": false,
+        "source_file": "main.hs",
+        "compile_cmd": "/usr/local/ghc-9.12.2/bin/ghc %s main.hs",
+        "run_cmd": "./main"
+    },
+    {
+        "id": 11,
+        "name": "Java (OpenJDK 25.0.1)",
+        "is_archived": false,
+        "source_file": "Main.java",
+        "compile_cmd": "/usr/local/openjdk${VERSION%%.*}/bin/javac %s Main.java",
+        "run_cmd": "/usr/local/openjdk${VERSION%%.*}/bin/java ${BINARY_FILE%.*}"
+    },
+    {
+        "id": 12,
+        "name": "JavaScript (Bun 1.3.1)",
+        "is_archived": false,
+        "source_file": "script.js",
+        "run_cmd": "/usr/local/bun-1.3.1/bin/bun script.js"
+    },
+    {
+        "id": 13,
+        "name": "Kotlin (2.2.21)",
+        "is_archived": false,
+        "source_file": "Main.kt",
+        "compile_cmd": "/usr/local/kotlin-2.2.21/bin/kotlinc %s Main.kt",
+        "run_cmd": "/usr/local/kotlin-2.2.21/bin/kotlin MainKt"
+    },
+    {
+        "id": 14,
+        "name": "Objective-C (Clang 19.1.7)",
+        "is_archived": false,
+        "source_file": "main.m",
+        "compile_cmd": "/usr/bin/clang-14 `gnustep-config --objc-flags | sed 's/-W[^ ]* //g'` `gnustep-config --base-libs | sed 's/-shared-libgcc//'` -I/usr/lib/gcc/x86_64-linux-gnu/8/include main.m %s",
+        "run_cmd": "./a.out"
+    },
+    {
+        "id": 15,
+        "name": "Perl (5.28.1)",
+        "is_archived": false,
+        "source_file": "script.pl",
+        "run_cmd": "/usr/bin/perl script.pl"
+    },
+    {
+        "id": 16,
+        "name": "PHP (8.4)",
+        "is_archived": false,
+        "source_file": "script.php",
+        "run_cmd": "/usr/local/php-8.4/bin/php script.php"
+    },
+    {
+        "id": 17,
+        "name": "Plain Text",
+        "is_archived": false,
+        "source_file": "text.txt",
+        "run_cmd": "/bin/cat text.txt"
+    },
+    {
+        "id": 18,
+        "name": "Python (3.14.0)",
+        "is_archived": false,
+        "source_file": "script.py",
+        "run_cmd": "/usr/local/python-3.14.0/bin/python${VERSION%%.*} script.py"
+    },
+    {
+        "id": 19,
+        "name": "Ruby (3.4.7)",
+        "is_archived": false,
+        "source_file": "script.rb",
+        "run_cmd": "/usr/local/ruby-3.4.7/bin/ruby script.rb"
+    },
+    {
+        "id": 20,
+        "name": "Rust (1.91.0)",
+        "is_archived": false,
+        "source_file": "main.rs",
+        "compile_cmd": "/usr/local/rust-1.91.0/bin/rustc %s main.rs",
+        "run_cmd": "./main"
+    },
+    {
+        "id": 21,
+        "name": "SQL (SQLite 3.27.2)",
+        "is_archived": false,
+        "source_file": "script.sql",
+        "run_cmd": "/bin/cat script.sql | /usr/bin/sqlite3 db.sqlite"
+    },
+    {
+        "id": 22,
+        "name": "Swift (6.2)",
+        "is_archived": false,
+        "source_file": "Main.swift",
+        "compile_cmd": "/usr/local/swift-6.2/bin/swiftc %s Main.swift",
+        "run_cmd": "./Main"
+    },
+    {
+        "id": 23,
+        "name": "TypeScript (Bun 1.3.1)",
+        "is_archived": false,
+        "source_file": "script.ts",
+        "run_cmd": "/usr/local/bun-1.3.1/bin/bun script.ts"
+    }
+]
