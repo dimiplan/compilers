@@ -7,12 +7,13 @@ import sys
 logging.basicConfig(
     format="[%(asctime)s] [%(process)d] [%(levelname)s] %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S %z",
-    level=logging.INFO
+    level=logging.INFO,
 )
 
-TESTS_DIR="tests"
-LANG_PROPERTIES_FILE="lang.properties"
-SKIP_LANG_FILE=".skip"
+TESTS_DIR = "tests"
+LANG_PROPERTIES_FILE = "lang.properties"
+SKIP_LANG_FILE = ".skip"
+
 
 def parse_lang_properties(lang_properties):
     variables = {"ARGS": "%s"}
@@ -34,9 +35,12 @@ def parse_lang_properties(lang_properties):
         languages.append(language)
     return languages
 
+
 if __name__ == "__main__":
     if not os.path.exists(TESTS_DIR):
-        logging.error("Tests directory does not exist. Please run this script from the root of the project.")
+        logging.error(
+            "Tests directory does not exist. Please run this script from the root of the project."
+        )
         sys.exit(-1)
 
     languages = []
@@ -57,7 +61,7 @@ if __name__ == "__main__":
             "id": id,
             "name": language["NAME"],
             "is_archived": False,
-            "source_file": language["SOURCE_FILE"]
+            "source_file": language["SOURCE_FILE"],
         }
 
         if language["COMPILE_CMD"] != "":
