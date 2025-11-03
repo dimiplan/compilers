@@ -227,3 +227,4 @@ ENV BOX_ROOT=/var/local/lib/isolate
 
 LABEL maintainer="dimiplan <admin@dimiplan.com>"
 LABEL version="2.0.0"
+LABEL org.opencontainers.image.source = "https://github.com/dimiplan/compilers"
