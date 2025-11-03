@@ -225,5 +225,5 @@ RUN set -xe && \
     rm -rf /tmp/*
 ENV BOX_ROOT=/var/local/lib/isolate
 
-LABEL maintainer="Herman Zvonimir Došilović <hermanz.dosilovic@gmail.com>"
-LABEL version="1.4.0"
+LABEL maintainer="dimiplan <admin@dimiplan.com>"
+LABEL version="2.0.0"
