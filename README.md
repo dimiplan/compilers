@@ -1,22 +1,10 @@
 # Compilers
 
 ## About
-This is a Docker image with installed compilers, interpreters, and [sandbox](https://github.com/ioi/isolate). It is used as a base image for [Judge0](https://github.com/judge0/judge0).
-
-## Get Started
-Start with the [**FREE Basic Plan**](https://rapidapi.com/hermanzdosilovic/api/judge0/pricing) on RapidAPI or [host it yourself](https://github.com/judge0/judge0/blob/master/CHANGELOG.md#deployment-procedure).
-
-### Why should you use Judge0 on RapidAPI?
-Our infrastructure behind RapidAPI allows you to focus on building your product and forget about the know-how of maintaining and scaling Judge0.
-
-### RapidAPI plans are not (good) enough for you?
-Let's talk. [Contact us](mailto:hermanz.dosilovic@gmail.com).
+This is a fork of [judge0/compilers](https://github.com/judge0/compilers) to support latest compiler versions and reduced a few packages to make it lighter.
 
 ## Supported Languages
-Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/judge0/pricing) and [Judge0 Extra](https://rapidapi.com/hermanzdosilovic/api/judge0-extra/pricing). They differ mostly in the supported languages.
 
-### [Judge0](https://rapidapi.com/hermanzdosilovic/api/judge0/pricing)
-<details><summary>Click here to expand the list</summary>
 <table>
 <thead>
 <tr>
@@ -123,7 +111,6 @@ Judge0 comes in two flavors: [Judge0](https://rapidapi.com/hermanzdosilovic/api/
 </tr>
 </tbody>
 </table>
-</details>
 
 ## Sandbox
 For sandbox we are using [Isolate](https://github.com/ioi/isolate) (licensed under [GPL v2](https://github.com/ioi/isolate/blob/master/LICENSE)).
@@ -133,6 +120,3 @@ For sandbox we are using [Isolate](https://github.com/ioi/isolate) (licensed und
 Huge thanks to [Martin Mareš](https://github.com/gollux) and [Bernard Blackham](https://github.com/bblackham) for developing and maintaining Isolate. Thanks to all [contributors](https://github.com/ioi/isolate/graphs/contributors) for their contributions to Isolate project.
 
 Isolate was used as a sandbox environment (part of [CMS](https://github.com/cms-dev/cms) system) on big programming contests like [International Olympiad in Informatics](http://www.ioinformatics.org/index.shtml) (a.k.a. IOI) in 2012, and we trust that it works and does its job.
-
-## Donate
-Your are more than welcome to support Judge0 development on [Patreon](https://www.patreon.com/hermanzdosilovic), via [PayPal](https://paypal.me/hermanzdosilovic) or [Revolut](https://pay.revolut.com/profile/hermancy5).
