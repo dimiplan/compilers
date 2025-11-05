@@ -216,7 +216,7 @@ ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 RUN set -xe && \
     apt update && \
-    apt install -y --no-install-recommends git libcap-dev && \
+    apt install -y --no-install-recommends git libcap-dev libsystemd-dev && \
     rm -rf /var/lib/apt/lists/* && \
     git clone https://github.com/ioi/isolate.git /tmp/isolate && \
     cd /tmp/isolate && \
