@@ -60,7 +60,7 @@ RUN set -xe && \
     rm -rf /tmp/*
 
 # Stage 4: Install Java (OpenJDK)
-FROM ruby-stage AS java-stage
+FROM python-stage AS java-stage
 # Check for latest version here: https://jdk.java.net
 RUN set -xe && \
     curl -fSsL "https://download.java.net/java/GA/jdk25.0.1/2fbf10d8c78e40bd87641c434705079d/8/GPL/openjdk-25.0.1_linux-x64_bin.tar.gz" -o /tmp/openjdk.tar.gz && \
